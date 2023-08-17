@@ -20,8 +20,8 @@ class Node:
         self.node_pos = node_pos if node_pos is not None else [0,0]
         self.connected_nodes = connected_nodes
 
-        # Sets node initial state to 'closed'
-        self.state = 'closed'
+        # Sets node initial state to 'init'
+        self.state = 'init'
 
         # When a node changes state, it knows which node changed it.
         self.previous_node = None
@@ -43,15 +43,14 @@ class Node:
         self.score = 0
 
 
-    def score_node(self, endnode, opening, prev_score):
+    def score_node(self, endnode, previous_node):
         '''
         Score the node based on the following formula:
-        dist_to_end_node + dist_to_opening_node + opening_node_score
+        dist_to_end_node + dist_to_previous_node + previous_node_score
         This heuristic will probably change. 
         '''
         dt_endnode = math.dist(endnode.node_pos, self.node_pos)
-        dt_opening = math.dist(opening.node_pos, self.node_pos)
+        dt_previous = math.dist(previous_node.node_pos, self.node_pos)
 
-        self.score = dt_endnode + dt_opening + prev_score
+        self.score = dt_endnode + dt_previous + previous_node.score
         return self.score
-
