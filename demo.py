@@ -47,20 +47,18 @@ def get_path(start_node, destination_node, map_nodes, open_nodes=None):
     # of this recursive function.
     if start_node.node_id != destination_node.node_id:
         for co_node in start_node.connected_nodes:
+            if map_nodes[co_node].state == 'init':
+                # Open connecting node
+                map_nodes[co_node].open_node(start_node)
+                debug(f'Node {map_nodes[co_node].node_id}: {map_nodes[co_node].state}')
+                debug(f'Opened by: {map_nodes[co_node].previous_node.node_id}')
 
-            if start_node.node_id != destination_node.node_id:
-                if map_nodes[co_node].state == 'init':
-                    # Open connecting node
-                    map_nodes[co_node].open_node(start_node)
-                    debug(f'Node {map_nodes[co_node].node_id}: {map_nodes[co_node].state}')
-                    debug(f'Opened by: {map_nodes[co_node].previous_node.node_id}')
+                # Score Connecting nodes
+                map_nodes[co_node].score_node(destination_node, start_node)
+                debug(f'{map_nodes[co_node].node_id} Score: {map_nodes[co_node].score}\n')
 
-                    # Score Connecting nodes
-                    map_nodes[co_node].score_node(destination_node, start_node)
-                    debug(f'{map_nodes[co_node].node_id} Score: {map_nodes[co_node].score}\n')
-
-                    # Add open nodes to the open node list
-                    open_nodes.append(map_nodes[co_node])
+                # Add open nodes to the open node list
+                open_nodes.append(map_nodes[co_node])
 
         # Close the originating node and remove from list
         start_node.close_node()
