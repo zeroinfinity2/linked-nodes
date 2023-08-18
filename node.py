@@ -1,6 +1,6 @@
 '''
 node.py
-Part of the graph traversal algorithm using connected nodes prototype
+Part of the graph traversal algorithm using connected nodes prototype.
 '''
 import math
 
