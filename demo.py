@@ -2,7 +2,7 @@
 The demo script for the graph traversal algorithm
 '''
 import csv
-import node
+from node import Node
 
 def create_map(nodefile):
     '''
@@ -15,7 +15,7 @@ def create_map(nodefile):
         for row in reader:
             nodelist.update({
                 row['node_id']:
-                node.Node(row['node_id'],
+                Node(row['node_id'],
                           node_pos=[int(row['node_x']),int(row['node_y'])],
                           connected_nodes=row['connected_nodes'].split())})
     return nodelist
