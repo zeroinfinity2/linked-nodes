@@ -4,16 +4,6 @@ The demo script for the graph traversal algorithm
 import csv
 import node
 
-DEBUG = False
-
-def debug(message):
-    '''
-    Only returns the message if debug is set to true.
-    '''
-    if DEBUG:
-        return print(message)
-
-
 def create_map(nodefile):
     '''
     Creates node objects based on file input.
@@ -50,30 +40,24 @@ def get_path(start_node, destination_node, map_nodes, open_nodes=None):
             if map_nodes[co_node].state == 'init':
                 # Open connecting node
                 map_nodes[co_node].open_node(start_node)
-                debug(f'Node {map_nodes[co_node].node_id}: {map_nodes[co_node].state}')
-                debug(f'Opened by: {map_nodes[co_node].previous_node.node_id}')
 
                 # Score Connecting nodes
                 map_nodes[co_node].score_node(destination_node, start_node)
-                debug(f'{map_nodes[co_node].node_id} Score: {map_nodes[co_node].score}\n')
 
                 # Add open nodes to the open node list
                 open_nodes.append(map_nodes[co_node])
 
         # Close the originating node and remove from list
         start_node.close_node()
-        debug(f'Start node {start_node.node_id} closed.')
         open_nodes.remove(start_node)
 
         # Find the lowest score in the open nodes
         open_nodes.sort(key=lambda node: node.score)
-        debug(f'Lowest scoring node: {open_nodes[0].node_id} = {open_nodes[0].score}')
 
         # Call the function again, setting the start as the lowest node.
         return get_path(open_nodes[0], destination_node, map_nodes, open_nodes)
 
     else:
-        debug('A path has been found!')
         # Begin pathing phase
         # Each node knows which node has opened it.
         path = []
