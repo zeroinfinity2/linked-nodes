@@ -4,6 +4,7 @@ The demo script for the graph traversal algorithm
 import csv
 from node import Node
 
+
 def create_map(nodefile):
     '''
     Creates node objects based on file input.
@@ -16,8 +17,8 @@ def create_map(nodefile):
             nodelist.update({
                 row['node_id']:
                 Node(row['node_id'],
-                          node_pos=[int(row['node_x']),int(row['node_y'])],
-                          connected_nodes=row['connected_nodes'].split())})
+                     node_pos=[int(row['node_x']), int(row['node_y'])],
+                     connected_nodes=row['connected_nodes'].split())})
     return nodelist
 
 
@@ -87,6 +88,6 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except  Exception as e:
+    except Exception as e:
         print(e)
         raise
