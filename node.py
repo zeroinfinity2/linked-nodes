@@ -2,7 +2,7 @@
 node.py
 Part of the graph traversal algorithm using connected nodes prototype.
 '''
-import math
+from math import dist
 
 
 class Node:
@@ -47,8 +47,8 @@ class Node:
         dist_to_end_node + dist_to_previous_node + previous_node_score
         This heuristic will probably change.
         '''
-        dt_endnode = math.dist(endnode.node_pos, self.node_pos)
-        dt_previous = math.dist(previous_node.node_pos, self.node_pos)
+        dt_endnode = dist(endnode.node_pos, self.node_pos)
+        dt_previous = dist(previous_node.node_pos, self.node_pos)
 
         self.score = dt_endnode + dt_previous + previous_node.score
         return self.score
